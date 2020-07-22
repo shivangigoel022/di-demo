@@ -13,6 +13,9 @@ import org.springframework.core.env.Environment;
 @PropertySource("classpath:datasource.properties")
 public class PropertyConfig {
 
+    @Autowired
+    Environment env;
+
     @Value("${guru.username}")
     String username;
 
@@ -25,7 +28,7 @@ public class PropertyConfig {
     @Bean
     public FakedataSource fakedataSource(){
         FakedataSource fakedataSource = new FakedataSource();
-        fakedataSource.setUser(username);
+        fakedataSource.setUser(env.getProperty("USERNAME"));
         fakedataSource.setPassword(password);
         fakedataSource.setUrl(url);
         return fakedataSource;
